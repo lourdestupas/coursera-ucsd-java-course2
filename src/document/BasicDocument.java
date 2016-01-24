@@ -30,7 +30,19 @@ public class BasicDocument extends Document
 	{
 		//TODO: Implement this method.  See the Module 1 support videos 
 	    // if you need help.
-	    return 0;
+		List<String> words = getTokens("[a-zA-Z]+");
+		
+		/*
+		System.out.println("");
+		System.out.println("");
+		System.out.println("*** words ***");
+		for (String s : words) {
+			System.out.println(s);
+		}
+		System.out.println("");
+		*/
+		
+	    return words.size();
 	}
 	
 	/**
@@ -46,7 +58,17 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 1 support videos 
         // if you need help.
-        return 0;
+		List<String> sentences = getTokens("[.!?]+");
+		int numSentences = sentences.size();
+	
+		if ((this.getText().lastIndexOf(".") == this.getText().length() - 1) ||
+			(this.getText().lastIndexOf("!") == this.getText().length() - 1) ||
+			(this.getText().lastIndexOf("?") == this.getText().length() - 1)){
+		}
+		else
+			numSentences++;
+		
+        return numSentences;
 	}
 	
 	/**
@@ -62,7 +84,81 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 1 support videos 
         // if you need help.
-        return 0;
+		int numSyllables = 0;
+		
+		/*
+		System.out.println("");
+		
+		//get tokens ending with a lone 'e'
+		List<String> syllables = getTokens("[a-zA-Z^(aeiouyAEIOUY)]+e[.!? ]+");
+		System.out.println("");
+		System.out.println("*** syllables1 ***");
+		for (String s : syllables) {
+			System.out.println(s);
+		}
+		numSyllables = syllables.size();		
+		
+		syllables = getTokens("[aiouyAIOUY]+[ ]+");
+		System.out.println("");
+		System.out.println("*** syllables2 ***");
+		for (String s : syllables) {
+			System.out.println(s);
+		}
+		numSyllables += syllables.size();
+		
+		//syllables = getTokens("[aeiouyAEIOUY]+[a-zA-Z^(eE)]+[ .!?]");
+		syllables = getTokens("[aeiouyAEIOUY]+[a-zA-Z^(aeiouyAEIOUY)]+[ .!?]");
+		System.out.println("");
+		System.out.println("*** syllables3 ***");
+		for (String s : syllables) {
+			System.out.println(s);
+		}
+		numSyllables += syllables.size();
+		
+		System.out.println("");
+		*/
+		
+		/*
+		System.out.println("");
+
+		//get tokens ending with a lone 'e'
+		syllables = getTokens(
+				"[a-zA-Z^(aeiouyAEIOUY)]+e[ .!?]+"+
+				"|[aeiouy]+[a-zA-Z^(aeiouyAEIOUY)]+[ .!?]*"+
+				"|[aiouy]+[ ]+");
+		System.out.println("syllables");
+		for (String s : syllables) {
+			System.out.println(s);
+		}
+		numSyllables = syllables.size();
+		*/
+		
+		System.out.println("");
+		System.out.println("");
+		List<String> words = getTokens("[a-zA-Z]+");
+		for	(String w : words) {			
+			/*List<String> syllables = getTokens(w, "[aeiouyAEIOUY]+[a-zA-Z^(eE)]|"+
+												  "[aeiouyAEIOUY]+[a-zA-Z^(aiouyAIOUY)]+|"+
+												  "[aeiouyAEIOUY]+");*/
+
+			List<String> syllables = getTokens(w, "[aeiouyAEIOUY]+");
+			numSyllables += syllables.size();
+			
+			if (syllables.size() >= 2) {
+				if (((w.lastIndexOf("e") == w.length()-1) || (w.lastIndexOf("E") == w.length()-1))
+					&& 
+					((syllables.lastIndexOf("e") == syllables.size()-1) || (syllables.lastIndexOf("E") == syllables.size()-1))) {
+					numSyllables--;
+				}
+			}
+			
+			/*System.out.println("*** word: " + w);
+			for (String s : syllables) {
+				System.out.println("****** " + s);
+			}*/
+		}
+		
+        return numSyllables;
 	}
 	
 	

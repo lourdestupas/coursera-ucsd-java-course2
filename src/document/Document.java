@@ -42,6 +42,19 @@ public abstract class Document {
 		return tokens;
 	}
 	
+	protected List<String> getTokens(String textToSearch, String pattern)
+	{
+		ArrayList<String> tokens = new ArrayList<String>();
+		Pattern tokSplitter = Pattern.compile(pattern);
+		Matcher m = tokSplitter.matcher(textToSearch);
+		
+		while (m.find()) {
+			tokens.add(m.group());
+		}
+		
+		return tokens;
+	}
+	
 	// This is a helper function that returns the number of syllables
 	// in a word.  You should write this and use it in your 
 	// BasicDocument class.
@@ -53,7 +66,7 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 1) and 
 	    // EfficientDocument (module 2).
-	    return 0;
+	    return this.getNumSyllables();
 	}
 	
 	/** A method for testing
@@ -117,9 +130,8 @@ public abstract class Document {
 	public double getFleschScore()
 	{
 	    // TODO: Implement this method
-	    return 0.0;
+		return 206.835f
+				- (1.015f * (float)getNumWords()/(float)getNumSentences())
+				- (84.6f * (float)getNumSyllables()/(float)getNumWords()); 
 	}
-	
-	
-	
 }
