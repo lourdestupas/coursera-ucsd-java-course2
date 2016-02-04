@@ -59,6 +59,27 @@ public class DocumentBenchmarking {
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
 			 */  
 			 
+			String toPrint = numToCheck + "\t";
+			 
+			String text = getStringFromFile(textfile, numToCheck);
+
+			long startTime = System.nanoTime();
+			for (int i = 1; i <= trials; i++) {
+				BasicDocument document = new BasicDocument(text);
+				document.getFleschScore();
+			}
+			long endTime = System.nanoTime();			 
+			toPrint += ((endTime - startTime)/1000000000.0) + "\t";
+			
+			startTime = System.nanoTime();
+			for (int i = 1; i <= trials; i++) {
+				EfficientDocument document = new EfficientDocument(text);
+				document.getFleschScore();
+			}
+			endTime = System.nanoTime();
+			toPrint += ((endTime - startTime)/1000000000.0) + "\t";
+			
+			System.out.println(toPrint);
 		}
 	
 	}
