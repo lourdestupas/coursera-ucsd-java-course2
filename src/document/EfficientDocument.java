@@ -49,19 +49,16 @@ public class EfficientDocument extends Document {
 		numSentences = 0;
 		numSyllables = 0;
 		int tokenSize = tokens.size();
-		int iter = 0;
-		
-		for	(String s : tokens) {
-			iter++;
-			
-			if (!isWord(s)) {
+
+		for (int i = 0; i < tokenSize; i++) {
+			if (!isWord(tokens.get(i))) {
 				numSentences++;
 			}
 			else {
 				numWords++;
-				numSyllables += countSyllables(s);
+				numSyllables += countSyllables(tokens.get(i));
 				
-				if (iter == tokenSize) {
+				if ((i+1) == tokenSize) {
 					numSentences++;
 				}
 			}
